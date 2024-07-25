@@ -37,20 +37,19 @@
   npm run dev
   ```
 
-[//]: # (### Linter & Formatter)
+### Linter & Formatter
 
-[//]: # (- Run ESLint)
+- Run ESLint
+  ```bash
+  npm run eslint
+  ```
 
-[//]: # (  ```bash)
+- Check Prettier
+  ```bash
+  npm run prettier:c
+  ```
 
-[//]: # (  npm run eslint)
-
-[//]: # (  ```)
-
-[//]: # (- Check Prettier)
-
-[//]: # (  ```bash)
-
-[//]: # (  npm run prettier:c)
-
-[//]: # (  ```)
+- Run Prettier
+  ```bash
+  npm run prettier:w
+  ```

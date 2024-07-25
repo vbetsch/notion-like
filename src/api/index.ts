@@ -1,5 +1,5 @@
-import {QUERIES} from "./queries";
+import { QUERIES } from './queries';
 
 export const API = {
-    QUERIES
-}
+	QUERIES,
+};

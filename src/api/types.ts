@@ -1,3 +1,3 @@
 export interface HelloType {
-    hello: string;
+	hello: string;
 }
