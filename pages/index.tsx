@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
 	const [hello, setHello] = useState<string>('');
 
 	useEffect(() => {
-		DATA.getData(API.QUERIES.getHelloWorld(), setHello, setLoading, 'No hello were found');
+		DATA.getData(API.QUERIES.HELLO.getHelloWorld(), setHello, setLoading, 'No hello were found');
 	}, []);
 
 	return (
