@@ -1,4 +1,4 @@
-import { HelloType } from '../../types/api/HelloType';
+import { HelloType } from '@/types/api/HelloType';
 import { API } from '../index';
 
 const getHelloWorld = async (): Promise<HelloType> => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { DATA } from '../src/services/data';
-import { API } from '../src/api';
-import DynamicLoading from '../src/components/loading/DynamicLoading';
+import DynamicLoading from '@/components/loading/DynamicLoading';
+import { DATA } from '@/services/data';
+import { API } from '@/api/index';
 
 export default function Home(): JSX.Element {
 	const [loading, setLoading] = useState<boolean>(false);

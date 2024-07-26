@@ -1,6 +1,6 @@
 import { QUERIES } from './queries';
-import { FETCH } from '../services/fetch';
-import { HttpMethods } from '../enums/HttpMethods';
+import { FETCH } from '@/services/fetch';
+import { HttpMethods } from '@/enums/HttpMethods';
 import { CONSTANTS } from './constants';
 
 const BASE_URL = '/api';
