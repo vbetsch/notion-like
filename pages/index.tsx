@@ -14,7 +14,6 @@ export default function Home(): ReactElement {
 		setLoading(true);
 		API.QUERIES.BOARDS.getBoards()
 			.then(data => {
-				console.log('(27/07/2024 17:36)  @victor  [ index.tsx:16 ]  data  ', data);
 				data ? setBoards(data.boards) : LOGGER.print_no_data('boards');
 			})
 			.catch(error => {
