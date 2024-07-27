@@ -3,14 +3,14 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { LOGGER } from '@/services/logger';
 import dbConnect from '@/lib/dbConnect';
-import Board from '@/db/models/Board';
+import { DB } from '@/db/index';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	switch (req.method) {
 		case HttpMethods.GET:
 			try {
 				await dbConnect();
-				const boards = await Board.find({});
+				const boards = await DB.QUERIES.BOARDS.getAllBoards();
 				return res.status(StatusCodes.OK).json({ boards });
 			} catch (error) {
 				LOGGER.print_stack(error, ReasonPhrases.INTERNAL_SERVER_ERROR);
