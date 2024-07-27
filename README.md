@@ -48,3 +48,14 @@
   ```bash
   npm run prettier:w
   ```
+
+### Test
+
+- Launch API Jest tests
+  ```bash
+  npm run test:api
+  ```
+- Run API test coverage
+  ```bash
+  npm run test:api:coverage
+  ```
