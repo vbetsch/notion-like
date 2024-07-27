@@ -2,16 +2,13 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { LOGGER } from '@/services/logger';
-import dbConnect from '@/lib/dbConnect';
-import { DB } from '@/db/index';
+import { getAllBoards } from '../../../src/db/queries/boards';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	switch (req.method) {
 		case HttpMethods.GET:
 			try {
-				await dbConnect();
-				const boards = await DB.QUERIES.BOARDS.getAllBoards();
-				return res.status(StatusCodes.OK).json({ boards });
+				return res.status(StatusCodes.OK).json({ boards: await getAllBoards() });
 			} catch (error) {
 				LOGGER.print_stack(error, ReasonPhrases.INTERNAL_SERVER_ERROR);
 				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ReasonPhrases.INTERNAL_SERVER_ERROR);

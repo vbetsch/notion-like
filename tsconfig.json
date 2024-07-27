@@ -11,9 +11,6 @@
             "@/components/*": [
                 "src/components/*"
             ],
-            "@/db/*": [
-                "src/db/*"
-            ],
             "@/enums/*": [
                 "src/enums/*"
             ],
