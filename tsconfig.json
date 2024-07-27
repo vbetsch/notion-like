@@ -5,6 +5,9 @@
             "@/lib/*": [
                 "lib/*"
             ],
+            "@/styles/*": [
+                "public/css/modules/*"
+            ],
             "@/api/*": [
                 "src/api/*"
             ],

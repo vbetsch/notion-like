@@ -4,7 +4,7 @@ import dbConnect from '@/lib/dbConnect';
 
 const getAllBoards = async (): Promise<BoardType[]> => {
 	await dbConnect();
-	return Board.find({});
+	return Board.find({}).sort({ name: 1 });
 };
 
 export { getAllBoards };

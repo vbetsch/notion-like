@@ -1,0 +1,14 @@
+.boardsList {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+}
+
+.boardItem {
+    background-color: var(--lightgrey);
+    font-size: 18px;
+    height: 120px;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}

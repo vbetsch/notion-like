@@ -7,5 +7,5 @@ interface DynamicProperties {
 }
 
 export default function DynamicLoading(props: DynamicProperties): ReactElement {
-	return <div>{props.loading ? <Loading /> : props.children}</div>;
+	return <div className={'loadingContainer'}>{props.loading ? <Loading /> : props.children}</div>;
 }
