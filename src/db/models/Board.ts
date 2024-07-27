@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
-
-export interface BoardType extends mongoose.Document {
-	name: string;
-	columns: mongoose.Types.ObjectId[];
-}
+import { BoardType } from '@/types/db/BoardType';
 
 const BoardSchema = new mongoose.Schema<BoardType>({
 	name: {

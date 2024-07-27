@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
-
-export interface CardType extends mongoose.Document {
-	name: string;
-	description: string;
-}
+import { CardType } from '@/types/db/CardType';
 
 const CardSchema = new mongoose.Schema<CardType>({
 	name: {

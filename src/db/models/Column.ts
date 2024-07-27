@@ -1,10 +1,5 @@
 import mongoose from 'mongoose';
-
-export interface ColumnType extends mongoose.Document {
-	name: string;
-	order: number;
-	cards: mongoose.Types.ObjectId[];
-}
+import { ColumnType } from '@/types/db/ColumnType';
 
 const ColumnSchema = new mongoose.Schema<ColumnType>({
 	name: {

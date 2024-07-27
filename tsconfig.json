@@ -5,20 +5,14 @@
             "@/lib/*": [
                 "lib/*"
             ],
-            "@/models/*": [
-                "src/models/*"
-            ],
-            "@/public/*": [
-                "models/*"
-            ],
             "@/api/*": [
                 "src/api/*"
             ],
-            "@/queries/*": [
-                "src/api/queries/*"
-            ],
             "@/components/*": [
                 "src/components/*"
+            ],
+            "@/db/*": [
+                "src/db/*"
             ],
             "@/enums/*": [
                 "src/enums/*"

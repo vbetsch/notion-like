@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { LOGGER } from '@/services/logger';
 import dbConnect from '@/lib/dbConnect';
-import Board from '@/models/Board';
+import Board from '@/db/models/Board';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	switch (req.method) {
