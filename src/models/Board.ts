@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
-export interface Boards extends mongoose.Document {
+export interface BoardType extends mongoose.Document {
 	name: string;
 }
 
-const BoardSchema = new mongoose.Schema<Boards>({
+const BoardSchema = new mongoose.Schema<BoardType>({
 	name: {
 		type: String,
 		required: true,
 	},
 });
 
-export default mongoose.models.Board || mongoose.model<Boards>('Board', BoardSchema);
+export default mongoose.models.Board || mongoose.model<BoardType>('Board', BoardSchema);
