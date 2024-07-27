@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useEffect, useState } from 'react';
 import DynamicLoading from '@/components/loading/DynamicLoading';
 import { DATA } from '@/services/data';
 import { API } from '@/api/index';
 
-export default function Home(): JSX.Element {
+export default function Home(): ReactElement {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [hello, setHello] = useState<string>('');
 
