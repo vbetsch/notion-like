@@ -1,5 +1,1 @@
-import { HELLO } from './hello';
-
-export const QUERIES = {
-	HELLO,
-};
+export const QUERIES = {};

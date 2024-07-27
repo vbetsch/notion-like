@@ -1,6 +1,4 @@
-const URI = {
-	HELLO_WORLD: '/hello',
-};
+const URI = {};
 
 export const CONSTANTS = {
 	URI,
