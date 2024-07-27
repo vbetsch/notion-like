@@ -1,20 +1,25 @@
-import { NextApiResponse } from 'next';
-import { StatusCodes } from 'http-status-codes';
-
 // const _INTERNAL = {}
 // const CONSTANTS = {}
 
-const print_error = (response: NextApiResponse, statusCode: StatusCodes, message: string) => {
-	console.error(`ERROR: ${message}`);
-	return response.status(statusCode).json({ error: message });
+const print_warning = (message: string, component?: string) => {
+	console.warn(`WARNING:${component && ` [${component}]`} ${message}`);
 };
-const print_stack = (response: NextApiResponse, statusCode: StatusCodes, error: unknown, message: string) => {
-	console.error(`ERROR: ${message} -> ${error instanceof Error ? error.message : error}`);
-	return response.status(statusCode).json({ error: message });
+const print_error = (message: string) => {
+	console.error(`ERROR: ${message}`);
+};
+const print_stack = (error: unknown, message?: string) => {
+	console.error(`ERROR:${message || ` ${message} ->`} ${error instanceof Error ? error.message : error}`);
+};
+
+const print_no_data = (element?: string) => {
+	print_warning(`No ${element || 'data'} were found`);
 };
 
 export const LOGGER = {
 	// CONSTANTS,
+	print_warning,
 	print_error,
 	print_stack,
+
+	print_no_data,
 };

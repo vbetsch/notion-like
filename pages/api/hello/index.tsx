@@ -13,11 +13,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				await dbConnect();
 				board = await Board.create({ name: 'fatoumata' });
 				return res.status(StatusCodes.OK).json({ hello: 'world', board: board });
-			} catch (e) {
-				LOGGER.print_stack(res, StatusCodes.INTERNAL_SERVER_ERROR, e, ReasonPhrases.INTERNAL_SERVER_ERROR);
+			} catch (error) {
+				LOGGER.print_stack(error, ReasonPhrases.INTERNAL_SERVER_ERROR);
+				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ReasonPhrases.INTERNAL_SERVER_ERROR);
 			}
-			break;
 		default:
-			LOGGER.print_error(res, StatusCodes.METHOD_NOT_ALLOWED, ReasonPhrases.METHOD_NOT_ALLOWED);
+			LOGGER.print_error(ReasonPhrases.METHOD_NOT_ALLOWED);
+			return res.status(StatusCodes.METHOD_NOT_ALLOWED).json(ReasonPhrases.METHOD_NOT_ALLOWED);
 	}
 }
