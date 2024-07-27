@@ -1,6 +1,9 @@
 // const _INTERNAL = {}
 // const CONSTANTS = {}
 
+const print_info = (message: string, url?: string) => {
+	console.info(`${url && `(${url}) `}INFO: ${message}`);
+};
 const print_warning = (message: string, component?: string) => {
 	console.warn(`WARNING:${component && ` [${component}]`} ${message}`);
 };
@@ -17,6 +20,7 @@ const print_no_data = (element?: string) => {
 
 export const LOGGER = {
 	// CONSTANTS,
+	print_info,
 	print_warning,
 	print_error,
 	print_stack,

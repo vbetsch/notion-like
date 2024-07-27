@@ -2,12 +2,13 @@ import { QUERIES } from './queries';
 import { FETCH } from '@/services/fetch';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { CONSTANTS } from './constants';
+import { LOGGER } from '@/services/logger';
 
 const BASE_URL = '/api';
 
 const _doAPIDataFromUrl = async (url: string, infoText: string, options: RequestInit): Promise<any> => {
 	const result = await FETCH.fetchJsonByUrl(url, options);
-	console.info(`(${url}) INFO: ${infoText}`);
+	LOGGER.print_info(infoText, url);
 	return result;
 };
 
