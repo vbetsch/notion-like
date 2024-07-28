@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { getAllBoards } from '@/db/queries/boards';
 import { BoardsListResultType } from '@/api/types/BoardsResultsTypes';
@@ -14,14 +14,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				result = { boards: await getAllBoards() };
 				return res.status(StatusCodes.OK).json(result);
 			} catch (error) {
-				return RESPONSE.return_stack(
-					res,
-					error,
-					StatusCodes.INTERNAL_SERVER_ERROR,
-					ReasonPhrases.INTERNAL_SERVER_ERROR,
-				);
+				return RESPONSE.compute_stack(res, error);
 			}
 		default:
-			return RESPONSE.return_error(res, StatusCodes.METHOD_NOT_ALLOWED, ReasonPhrases.METHOD_NOT_ALLOWED);
+			return RESPONSE.compute_error(res, StatusCodes.METHOD_NOT_ALLOWED);
 	}
 }
