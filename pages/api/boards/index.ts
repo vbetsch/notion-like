@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { HttpMethods } from '@/enums/HttpMethods';
-import { LOGGER } from '@/services/logger';
 import { getAllBoards } from '@/db/queries/boards';
-import { BoardsListResultType } from '@/api/types/BoardsResultTypes';
+import { BoardsListResultType } from '@/api/types/BoardsResultsTypes';
+import { RESPONSE } from '@/services/response';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	let result: BoardsListResultType;
@@ -14,11 +14,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				result = { boards: await getAllBoards() };
 				return res.status(StatusCodes.OK).json(result);
 			} catch (error) {
-				LOGGER.print_stack(error, ReasonPhrases.INTERNAL_SERVER_ERROR);
-				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ReasonPhrases.INTERNAL_SERVER_ERROR);
+				return RESPONSE.return_stack(
+					res,
+					error,
+					StatusCodes.INTERNAL_SERVER_ERROR,
+					ReasonPhrases.INTERNAL_SERVER_ERROR,
+				);
 			}
 		default:
-			LOGGER.print_error(ReasonPhrases.METHOD_NOT_ALLOWED);
-			return res.status(StatusCodes.METHOD_NOT_ALLOWED).json(ReasonPhrases.METHOD_NOT_ALLOWED);
+			return RESPONSE.return_error(res, StatusCodes.METHOD_NOT_ALLOWED, ReasonPhrases.METHOD_NOT_ALLOWED);
 	}
 }

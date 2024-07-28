@@ -11,7 +11,7 @@ const print_error = (message: string) => {
 	console.error(`ERROR: ${message}`);
 };
 const print_stack = (error: unknown, message?: string) => {
-	console.error(`ERROR: ${message ? `${message} -> ` : ''}${error instanceof Error ? error.message : error}`);
+	console.error(`ERROR: ${message ? `${message} -> ` : ''}${error}`);
 };
 
 const print_no_data = (element?: string) => {
