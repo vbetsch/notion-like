@@ -7,9 +7,9 @@
         "eslint": "eslint .",
         "prettier:c": "prettier --check .",
         "prettier:w": "prettier --write .",
-        "test:api": "jest api",
-        "test:api:coverage": "jest api --coverage",
-        "test:api:watch": "jest api --watch"
+        "tests:api": "jest api",
+        "tests:api:coverage": "jest api --coverage",
+        "tests:api:watch": "jest api --watch"
     },
     "dependencies": {
         "@next/eslint-plugin-next": "^14.2.5",

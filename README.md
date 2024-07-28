@@ -37,11 +37,11 @@
 
 - Launch API Jest tests
   ```bash
-  npm run test:api
+  npm run tests:api
   ```
-- Run API test coverage
+- Run API tests coverage
   ```bash
-  npm run test:api:coverage
+  npm run tests:api:coverage
   ```
 
 ### Linter & Formatter

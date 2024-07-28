@@ -4,16 +4,24 @@ import { HttpMethods } from '@/enums/HttpMethods';
 import handler from '../../../pages/api/boards/index';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { getAllBoards } from '../../../src/db/queries/boards';
 import { describe, it, expect } from '@jest/globals';
+import Board from '../../../src/db/models/Board';
 
-jest.mock('../../../src/db/queries/boards', () => ({
-	getAllBoards: jest.fn(),
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const mockingoose = require('mockingoose');
+
+jest.mock('../../../lib/dbConnect', () => ({
+	__esModule: true,
+	default: jest.fn().mockResolvedValue(null),
 }));
 
 describe('[API] /boards', () => {
+	beforeEach(() => {
+		mockingoose.resetAll();
+	});
+
 	it('GET - should return all boards', async () => {
-		(getAllBoards as jest.Mock).mockResolvedValue(TESTS.MOCKS.BOARDS.ALL_BOARDS);
+		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ALL_BOARDS, 'find');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
@@ -26,7 +34,7 @@ describe('[API] /boards', () => {
 		expect(res._getJSONData()).toStrictEqual({ boards: TESTS.MOCKS.BOARDS.ALL_BOARDS });
 	});
 	it('GET - should return 500', async () => {
-		(getAllBoards as jest.Mock).mockRejectedValue(new Error('TEST'));
+		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'find');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
