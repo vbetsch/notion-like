@@ -9,10 +9,12 @@ export interface MockColumnType {
 	name: string;
 	order: number;
 	cards: MockCardType[];
+	boardId: string;
 }
 
 export interface MockCardType {
 	_id: string;
 	name: string;
 	description: string;
+	columnId: string;
 }

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { BoardType } from '@/types/db/BoardType';
+import { BoardType } from '@/db/types/BoardType';
 
 const BoardSchema = new mongoose.Schema<BoardType>({
 	name: {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { CardType } from '@/types/db/CardType';
+import { CardType } from '@/db/types/CardType';
 
 const CardSchema = new mongoose.Schema<CardType>({
 	name: {
@@ -9,6 +9,10 @@ const CardSchema = new mongoose.Schema<CardType>({
 	description: {
 		type: String,
 		required: false,
+	},
+	columnId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Column',
 	},
 });
 

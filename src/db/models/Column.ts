@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ColumnType } from '@/types/db/ColumnType';
+import { ColumnType } from '@/db/types/ColumnType';
 
 const ColumnSchema = new mongoose.Schema<ColumnType>({
 	name: {
@@ -16,6 +16,10 @@ const ColumnSchema = new mongoose.Schema<ColumnType>({
 			ref: 'Card',
 		},
 	],
+	boardId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Board',
+	},
 });
 
 export default mongoose.models.Column || mongoose.model<ColumnType>('Column', ColumnSchema);

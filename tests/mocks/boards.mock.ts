@@ -1,5 +1,5 @@
-import { MockBoardType } from '@/types/tests/mocks/database';
 import { COMMON } from './_common.mock';
+import { MockBoardType } from './types/database';
 
 const ALL_BOARDS: MockBoardType[] = [
 	{
