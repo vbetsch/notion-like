@@ -1,3 +1,4 @@
-import { BOARDS } from './boards';
+import { BOARDS } from './boards.mock';
+import { COMMON } from './_common.mock';
 
-export const MOCKS = { BOARDS };
+export const MOCKS = { COMMON, BOARDS };

@@ -5,18 +5,10 @@ import { HttpMethods } from '@/enums/HttpMethods';
 import handler from '../../../pages/api/boards/[idBoard]';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { TESTS } from '../../index';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
-
-const ERROR = new Error('TEST');
-const NOT_A_VALID_ID = 'not_a_valid_id';
-const VALID_ID = '60f9c2b0b9374c1b68f2b3e6';
-const ONE_BOARD = {
-	_id: VALID_ID,
-	name: 'Test',
-	columns: [],
-};
 
 jest.mock('../../../lib/dbConnect', () => ({
 	__esModule: true,
@@ -29,12 +21,12 @@ describe('[API] /boards/{idBoard}', () => {
 	});
 
 	it('GET - should return one board', async () => {
-		mockingoose(Board).toReturn(ONE_BOARD, 'findOne');
+		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
 			query: {
-				idBoard: VALID_ID,
+				idBoard: TESTS.MOCKS.COMMON.VALID_ID,
 			},
 		});
 
@@ -42,7 +34,7 @@ describe('[API] /boards/{idBoard}', () => {
 
 		expect(res._getStatusCode()).toBe(StatusCodes.OK);
 		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({ board: ONE_BOARD });
+		expect(res._getJSONData()).toStrictEqual({ board: TESTS.MOCKS.BOARDS.ONE_BOARD });
 	});
 	it('GET - should return 404', async () => {
 		mockingoose(Board).toReturn(null, 'findOne');
@@ -50,7 +42,7 @@ describe('[API] /boards/{idBoard}', () => {
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
 			query: {
-				idBoard: NOT_A_VALID_ID,
+				idBoard: TESTS.MOCKS.COMMON.NOT_VALID_ID,
 			},
 		});
 
@@ -61,7 +53,7 @@ describe('[API] /boards/{idBoard}', () => {
 		expect(res._getJSONData()).toStrictEqual({ board: null });
 	});
 	it('GET - should return 500', async () => {
-		mockingoose(Board).toReturn(ERROR, 'findOne');
+		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOne');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
