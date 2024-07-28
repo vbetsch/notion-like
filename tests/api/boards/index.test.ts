@@ -7,6 +7,7 @@ import { describe, it, expect } from '@jest/globals';
 import Board from '@/db/models/Board';
 import handler from '@/pages/api/boards';
 import { BasicErrorResultType } from '@/api/types/ResultsTypes';
+import { MockBoardsListResultType } from '../../mocks/types/results';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
@@ -20,7 +21,6 @@ describe('[API] /boards', () => {
 	beforeEach(() => {
 		mockingoose.resetAll();
 	});
-
 	it('GET - should return all boards', async () => {
 		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ALL_BOARDS, 'find');
 
@@ -30,9 +30,11 @@ describe('[API] /boards', () => {
 
 		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
 
+		const _result: MockBoardsListResultType = { boards: TESTS.MOCKS.BOARDS.ALL_BOARDS };
+
 		expect(res._getStatusCode()).toBe(StatusCodes.OK);
 		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({ boards: TESTS.MOCKS.BOARDS.ALL_BOARDS });
+		expect(res._getJSONData()).toStrictEqual(_result);
 	});
 	it('GET - should return 500', async () => {
 		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'find');

@@ -7,6 +7,7 @@ import { TESTS } from '../../index';
 import Board from '@/db/models/Board';
 import handler from '@/pages/api/boards/[idBoard]';
 import { BasicErrorResultType } from '@/api/types/ResultsTypes';
+import { MockBoardResultType } from '../../mocks/types/results';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
@@ -33,9 +34,11 @@ describe('[API] /boards/{idBoard}', () => {
 
 		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
 
+		const _result: MockBoardResultType = { board: TESTS.MOCKS.BOARDS.ONE_BOARD };
+
 		expect(res._getStatusCode()).toBe(StatusCodes.OK);
 		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({ board: TESTS.MOCKS.BOARDS.ONE_BOARD });
+		expect(res._getJSONData()).toStrictEqual(_result);
 	});
 	it('GET - should return 404', async () => {
 		mockingoose(Board).toReturn(null, 'findOne');
@@ -49,9 +52,11 @@ describe('[API] /boards/{idBoard}', () => {
 
 		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
 
+		const _result: MockBoardResultType = { board: null };
+
 		expect(res._getStatusCode()).toBe(StatusCodes.NOT_FOUND);
 		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({ board: null });
+		expect(res._getJSONData()).toStrictEqual(_result);
 	});
 	it('GET - should return 500', async () => {
 		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOne');
