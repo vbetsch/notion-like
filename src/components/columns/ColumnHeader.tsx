@@ -1,7 +1,7 @@
 import React, { Dispatch, ReactElement, useState } from 'react';
 import { BoardPagePhases } from '@/pages/ui/board';
 import styles from '@/styles/components/columns.module.css';
-import Button from '@/components/buttons/Button';
+import Button, { ButtonTypes } from '@/components/buttons/Button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InputText from '@/components/inputs/InputText';
 import LoadingButton from '@/components/buttons/LoadingButton';
@@ -27,14 +27,24 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 		case BoardPagePhases.WAITING_FOR_CREATING:
 			return (
 				<div className={styles.columnHeader} style={{ height: 40 }}>
-					<Button onClick={clickOnAddColumn} text={'New column'} iconProps={{ icon: faPlus }} />
+					<Button
+						type={ButtonTypes.DISCREET}
+						onClick={clickOnAddColumn}
+						text={'New column'}
+						iconProps={{ icon: faPlus }}
+					/>
 				</div>
 			);
 		case BoardPagePhases.EDITING:
 			return (
 				<div className={styles.columnHeader}>
 					<InputText />
-					<LoadingButton loading={loading} onClick={clickOnSaveButton} text={'Done'} />
+					<LoadingButton
+						type={ButtonTypes.PLAIN}
+						loading={loading}
+						onClick={clickOnSaveButton}
+						text={'Done'}
+					/>
 				</div>
 			);
 		case BoardPagePhases.DONE:

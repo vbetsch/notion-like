@@ -9,7 +9,7 @@ export interface LoadingButtonProperties extends ButtonProperties {
 export default function LoadingButton(props: LoadingButtonProperties): ReactElement {
 	return (
 		<DynamicLoading loading={props.loading}>
-			<Button text={props.text} iconProps={props.iconProps} onClick={props.onClick} />
+			<Button type={props.type} text={props.text} iconProps={props.iconProps} onClick={props.onClick} />
 		</DynamicLoading>
 	);
 }

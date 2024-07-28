@@ -1,9 +1,14 @@
 import React from 'react';
 import { ReactElement } from 'react';
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import styles from '@/styles/components/button.module.css';
+
+export enum ButtonTypes {
+	DISCREET = 'discreet',
+	PLAIN = 'plain',
+}
 
 export interface ButtonProperties {
+	type: ButtonTypes;
 	text: string;
 	iconProps?: FontAwesomeIconProps;
 	onClick: () => void;
@@ -11,7 +16,7 @@ export interface ButtonProperties {
 
 export default function Button(props: ButtonProperties): ReactElement {
 	return (
-		<button className={styles.button} onClick={props.onClick}>
+		<button className={'button ' + props.type} onClick={props.onClick}>
 			{props.iconProps && <FontAwesomeIcon icon={props.iconProps.icon} />}
 			<span>{props.text}</span>
 		</button>

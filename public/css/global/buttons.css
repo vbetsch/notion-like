@@ -1,0 +1,24 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 5px 10px;
+    gap: 5px;
+}
+
+.button.discreet {
+    color: var(--darkgrey);
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.button.discreet:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.button.plain {
+    background-color: red !important;
+}
