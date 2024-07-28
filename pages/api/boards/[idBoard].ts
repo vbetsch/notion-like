@@ -3,7 +3,7 @@ import { HttpMethods } from '@/enums/HttpMethods';
 import { StatusCodes } from 'http-status-codes';
 import { RESPONSE } from '@/services/response';
 import { BoardResultType } from '@/api/types/BoardsResultsTypes';
-import { QUERIES } from '@/db/queries';
+import { DB } from '@/db/index';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	const idBoard: string = req.query.idBoard as string;
@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		case HttpMethods.GET:
 			try {
 				result = {
-					board: await QUERIES.BOARDS.getBoardById(idBoard),
+					board: await DB.QUERIES.BOARDS.getBoardById(idBoard),
 				};
 			} catch (error) {
 				return RESPONSE.compute_stack(res, error);
