@@ -1,5 +1,6 @@
-import { COMMON } from './_common.mock';
 import { MockBoardType } from './types/database';
+
+const VALID_BOARD_ID: string = '60f9c2b0b9374c1b68f2b3e6';
 
 const ALL_BOARDS: MockBoardType[] = [
 	{
@@ -19,9 +20,9 @@ const ALL_BOARDS: MockBoardType[] = [
 	},
 ];
 const ONE_BOARD: MockBoardType = {
-	_id: COMMON.VALID_ID,
+	_id: VALID_BOARD_ID,
 	name: 'Test',
 	columns: [],
 };
 
-export const BOARDS = { ALL_BOARDS, ONE_BOARD };
+export const BOARDS = { VALID_BOARD_ID, ALL_BOARDS, ONE_BOARD };

@@ -44,7 +44,7 @@ describe('[API] /columns', () => {
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.VALID_ID,
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
 			},
 		});
 
@@ -87,7 +87,7 @@ describe('[API] /columns', () => {
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.VALID_ID,
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
 			},
 		});
 
@@ -109,7 +109,7 @@ describe('[API] /columns', () => {
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.VALID_ID,
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
 			},
 		});
 
@@ -131,7 +131,7 @@ describe('[API] /columns', () => {
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.VALID_ID,
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
 			},
 		});
 
@@ -154,8 +154,9 @@ describe('[API] /columns', () => {
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.VALID_ID,
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
 			},
+			body: TESTS.MOCKS.COLUMNS.ONE_COLUMN,
 		});
 
 		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);

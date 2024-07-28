@@ -28,7 +28,7 @@ describe('[API] /boards/{idBoard}', () => {
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.VALID_ID,
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
 			},
 		});
 
