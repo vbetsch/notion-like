@@ -8,12 +8,13 @@ import LoadingButton from '@/components/buttons/LoadingButton';
 import { API } from '@/api/index';
 import { ColumnCreateDto } from '@/db/types/dto/columns';
 import { LOGGER } from '@/services/logger';
+import { ColumnModelType } from '@/db/types/models/ColumnModelType';
 
 export interface ColumnHeaderProperties {
 	phase: BoardPagePhases;
 	setPhase: Dispatch<React.SetStateAction<BoardPagePhases>>;
 	boardId: string;
-	name?: string;
+	data?: ColumnModelType;
 }
 
 export default function ColumnHeader(props: ColumnHeaderProperties): ReactElement {
@@ -83,7 +84,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 					className={styles.columnHeader}
 					style={{ height: 40, backgroundColor: 'darkgrey', paddingLeft: 15 }}
 				>
-					{name || props.name}
+					{name || (props.data && props.data.name)}
 				</div>
 			);
 	}

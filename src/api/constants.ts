@@ -3,7 +3,7 @@ const URI = {
 		ALL: '/boards',
 	},
 	COLUMNS: {
-		CREATE: '/columns',
+		ROOT: '/columns',
 	},
 };
 

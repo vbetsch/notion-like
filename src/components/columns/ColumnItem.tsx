@@ -4,13 +4,12 @@ import ColumnHeader, { ColumnHeaderProperties } from '@/components/columns/Colum
 import styles from '@/styles/components/columns.module.css';
 import { BoardPagePhases } from '@/pages/ui/board';
 
-interface ColumnProperties extends ColumnHeaderProperties {
-}
+interface ColumnProperties extends ColumnHeaderProperties {}
 
 export default function ColumnItem(props: ColumnProperties): ReactElement {
 	return (
 		<div className={styles.columnItem}>
-			<ColumnHeader phase={props.phase} setPhase={props.setPhase} name={props.name} boardId={props.boardId} />
+			<ColumnHeader phase={props.phase} setPhase={props.setPhase} boardId={props.boardId} data={props.data} />
 			{props.phase === BoardPagePhases.DONE && (
 				<div>
 					<p>card</p>

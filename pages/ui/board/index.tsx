@@ -8,7 +8,7 @@ import Title from '@/components/Title';
 import styles from '@/styles/pages/boardPage.module.css';
 import ColumnsList from '@/components/columns/ColumnsList';
 import { BoardModelType } from '@/db/types/models/BoardModelType';
-import { ColumnDto } from '@/db/types/dto/columns';
+import { ColumnModelType } from '@/db/types/models/ColumnModelType';
 
 export enum BoardPagePhases {
 	WAITING_FOR_CREATING = 0,
@@ -21,8 +21,7 @@ export default function BoardPage(): ReactElement {
 	const [boardLoading, setBoardLoading] = useState<boolean>(true);
 	const [columnsLoading, setColumnsLoading] = useState<boolean>(false);
 	const [board, setBoard] = useState<BoardModelType | null>(null);
-	// const [columns, setColumns] = useState<ColumnModelType[]>([]);
-	const [columns, setColumns] = useState<ColumnDto[]>([]);
+	const [columns, setColumns] = useState<ColumnModelType[]>([]);
 	const searchParams = useSearchParams();
 	const searchId = searchParams.get('id');
 
@@ -48,31 +47,16 @@ export default function BoardPage(): ReactElement {
 			return;
 		}
 		setColumnsLoading(true);
-		const _data: ColumnDto[] = [
-			{
-				_id: 'test1',
-				name: 'Todo',
-				order: 1,
-				cards: [],
-				boardId: 'test',
-			},
-			{
-				_id: 'test2',
-				name: 'In Progress',
-				order: 2,
-				cards: [],
-				boardId: 'test',
-			},
-			{
-				_id: 'test3',
-				name: 'Done',
-				order: 3,
-				cards: [],
-				boardId: 'test',
-			},
-		];
-		setColumns(_data);
-		setColumnsLoading(false);
+		API.QUERIES.COLUMNS.getColumns(board._id as string)
+			.then(data => {
+				data && 'columns' in data ? setColumns(data.columns) : LOGGER.print_no_data('columns');
+			})
+			.catch(error => {
+				LOGGER.print_stack(error);
+			})
+			.finally(() => {
+				setColumnsLoading(false);
+			});
 	};
 
 	useEffect(() => {
