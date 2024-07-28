@@ -5,6 +5,7 @@ import { RESPONSE } from '@/services/response';
 import { DB } from '@/db/index';
 import { BoardModelType } from '@/db/types/models/BoardModelType';
 import { ColumnModelType } from '@/db/types/models/ColumnModelType';
+import { CreateColumnResultType } from '@/api/types/ResultsTypes';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	const idBoard: string | null = req.query.idBoard as string;
@@ -12,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	let board: BoardModelType | null;
 	let column: ColumnModelType;
 	let board_updated: BoardModelType | null;
+	let result: CreateColumnResultType;
 
 	switch (req.method) {
 		case HttpMethods.POST:
@@ -34,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			}
 
 			try {
-				column = await DB.QUERIES.COLUMNS.createOneColumn(req.body);
+				column = await DB.QUERIES.COLUMNS.createOneColumn(board._id as string, req.body);
 			} catch (error) {
 				return RESPONSE.compute_stack(res, error);
 			}
@@ -46,9 +48,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			}
 
 			if (!board_updated) {
-				return RESPONSE.compute_error(res, StatusCodes.UNAUTHORIZED, 'Column could not be added to board');
+				return RESPONSE.compute_error(
+					res,
+					StatusCodes.INTERNAL_SERVER_ERROR,
+					'Column could not be added to board',
+				);
 			}
-			break;
+
+			result = {
+				column_inserted: column,
+				board_updated,
+			};
+
+			return res.status(StatusCodes.OK).json(result);
 		default:
 			return RESPONSE.compute_error(res, StatusCodes.METHOD_NOT_ALLOWED);
 	}

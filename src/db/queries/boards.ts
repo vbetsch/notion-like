@@ -12,12 +12,8 @@ const getBoardById = async (id: string): Promise<BoardModelType | null> => {
 	return Board.findById(id);
 };
 const addColumnToBoard = async (board: BoardModelType, column: ColumnModelType): Promise<BoardModelType | null> => {
-	const _columns = {
-		...board.columns,
-		column,
-	};
 	await dbConnect();
-	return Board.findOneAndUpdate({ _id: board._id }, { columns: _columns }, { new: true });
+	return Board.findOneAndUpdate({ _id: board.id }, { columns: [...board.columns, column] }, { new: true });
 };
 
 export const BOARDS = { getAllBoards, getBoardById, addColumnToBoard };
