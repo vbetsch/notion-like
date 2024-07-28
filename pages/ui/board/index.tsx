@@ -4,8 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import { API } from '@/api/index';
 import { LOGGER } from '@/services/logger';
 import DynamicLoading from '@/components/loading/DynamicLoading';
-import { BoardType } from '@/types/db/BoardType';
 import Title from '@/components/Title';
+import { BoardType } from '@/db/types/BoardType';
 
 export default function BoardPage(): ReactElement {
 	const [loading, setLoading] = useState<boolean>(true);

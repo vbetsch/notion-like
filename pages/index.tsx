@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Title from '@/components/Title';
 import BoardsList from '@/components/boards/BoardsList';
-import { BoardType } from '@/types/db/BoardType';
 import { LOGGER } from '@/services/logger';
 import { API } from '@/api/index';
 import styles from '@/styles/pages/boardsPage.module.css';
+import { BoardType } from '@/db/types/BoardType';
 
 export default function Home(): ReactElement {
 	const [boards, setBoards] = useState<BoardType[]>([]);

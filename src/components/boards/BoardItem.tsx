@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
-import { BoardType } from '@/types/db/BoardType';
 import styles from '@/styles/components/boards.module.css';
 import { useRouter } from 'next/router';
+import { BoardType } from '@/db/types/BoardType';
 
 export interface BoardItemProperties {
 	board: BoardType;

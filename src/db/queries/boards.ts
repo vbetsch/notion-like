@@ -1,6 +1,6 @@
-import { BoardType } from '@/types/db/BoardType';
 import Board from '../models/Board';
 import dbConnect from '@/lib/dbConnect';
+import { BoardType } from '@/db/types/BoardType';
 
 const getAllBoards = async (): Promise<BoardType[]> => {
 	await dbConnect();

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import BoardItem from '@/components/boards/BoardItem';
 import DynamicLoading from '@/components/loading/DynamicLoading';
-import { BoardType } from '@/types/db/BoardType';
 import styles from '@/styles/components/boards.module.css';
+import { BoardType } from '@/db/types/BoardType';
 
 interface BoardsListProperties {
 	boards: BoardType[];
