@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { LOGGER } from '@/services/logger';
-import { BoardsListResultType } from '@/types/api/queries/boards/BoardsListResultType';
 import { getAllBoards } from '@/db/queries/boards';
+import { BoardsListResultType } from '@/api/types/BoardsResultTypes';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	let result: BoardsListResultType;

@@ -1,5 +1,5 @@
 import { API } from '@/api/index';
-import { BoardResultType, BoardsListResultType } from '@/types/api/queries/boards/BoardsListResultType';
+import { BoardResultType, BoardsListResultType } from '@/api/types/BoardsResultTypes';
 
 const getBoards = async (): Promise<BoardsListResultType> => {
 	return await API.getAPIDataFromUrl(API.CONSTANTS.URI.BOARDS.ALL, 'Get all boards');
