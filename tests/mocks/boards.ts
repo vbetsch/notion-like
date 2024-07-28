@@ -1,5 +1,8 @@
-import { BoardType } from '@/types/db/BoardType';
+const ALL_BOARDS = [{}];
+const ONE_BOARD = {
+	_id: 123,
+	name: 'Test',
+	columns: [],
+};
 
-const ALL_BOARDS: BoardType[] = [];
-
-export const BOARDS = { ALL_BOARDS };
+export const BOARDS = { ALL_BOARDS, ONE_BOARD };
