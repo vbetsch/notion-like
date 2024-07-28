@@ -8,7 +8,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import Board from '@/db/models/Board';
 import { TESTS } from '../../index';
 import Column from '@/db/models/Column';
-import { MockCreateColumnResultType } from '../../mocks/types/results';
+import { MockColumnsListResultType, MockCreateColumnResultType } from '../../mocks/types/results';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
@@ -21,6 +21,107 @@ jest.mock('../../../lib/dbConnect', () => ({
 describe('[API] /columns', () => {
 	beforeEach(() => {
 		mockingoose.resetAll();
+	});
+	it('GET - should return that you need to specify an id', async () => {
+		const { req, res } = createMocks({
+			method: HttpMethods.GET,
+		});
+
+		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
+
+		const _result: BasicErrorResultType = {
+			reason: ReasonPhrases.UNAUTHORIZED,
+			message: 'You need to specify an id',
+		};
+
+		expect(res._getStatusCode()).toBe(StatusCodes.UNAUTHORIZED);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(_result);
+	});
+	it('GET - should return 500 while trying to getBoardById', async () => {
+		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOne');
+
+		const { req, res } = createMocks({
+			method: HttpMethods.GET,
+			query: {
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+			},
+		});
+
+		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
+
+		const _result: BasicErrorResultType = {
+			reason: ReasonPhrases.INTERNAL_SERVER_ERROR,
+			message: TESTS.MOCKS.COMMON.ERROR_MESSAGE,
+		};
+
+		expect(res._getStatusCode()).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(_result);
+	});
+	it('GET - should return 404 no board found', async () => {
+		mockingoose(Board).toReturn(null, 'findOne');
+
+		const { req, res } = createMocks({
+			method: HttpMethods.GET,
+			query: {
+				idBoard: TESTS.MOCKS.COMMON.NOT_VALID_ID,
+			},
+		});
+
+		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
+
+		const _result: BasicErrorResultType = {
+			reason: ReasonPhrases.NOT_FOUND,
+			message: `The board specified by id '${TESTS.MOCKS.COMMON.NOT_VALID_ID}' does not exist`,
+		};
+
+		expect(res._getStatusCode()).toBe(StatusCodes.NOT_FOUND);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(_result);
+	});
+	it('GET - should return 500 while trying to getAllColumns', async () => {
+		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
+		mockingoose(Column).toReturn(TESTS.MOCKS.COMMON.ERROR, 'find');
+
+		const { req, res } = createMocks({
+			method: HttpMethods.GET,
+			query: {
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+			},
+		});
+
+		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
+
+		const _result: BasicErrorResultType = {
+			reason: ReasonPhrases.INTERNAL_SERVER_ERROR,
+			message: TESTS.MOCKS.COMMON.ERROR_MESSAGE,
+		};
+
+		expect(res._getStatusCode()).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(_result);
+	});
+	it('GET - should return 200 with columns of board expected', async () => {
+		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ALL_COLUMNS, 'find');
+
+		const { req, res } = createMocks({
+			method: HttpMethods.GET,
+			query: {
+				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+			},
+		});
+
+		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
+
+		const _result: MockColumnsListResultType = {
+			columns: TESTS.MOCKS.COLUMNS.ALL_COLUMNS,
+		};
+
+		expect(res._getStatusCode()).toBe(StatusCodes.OK);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(_result);
 	});
 	it('POST - should return that you need to specify an id', async () => {
 		const { req, res } = createMocks({
