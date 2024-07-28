@@ -6,6 +6,10 @@
 
 .columnItem {
     height: fit-content;
+}
+
+.columnHeader {
+    height: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
