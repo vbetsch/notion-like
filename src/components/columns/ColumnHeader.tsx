@@ -37,7 +37,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 			);
 		case BoardPagePhases.EDITING:
 			return (
-				<div className={styles.columnHeader}>
+				<div className={styles.columnHeader} style={{ gap: 10 }}>
 					<InputText />
 					<LoadingButton
 						type={ButtonTypes.PLAIN}

@@ -5,6 +5,7 @@
     border: 2px solid;
     border-radius: 5px;
     padding: 5px 10px;
+    cursor: pointer;
     gap: 5px;
 }
 
@@ -20,5 +21,11 @@
 }
 
 .button.plain {
-    background-color: red !important;
+    background-color: var(--blue);
+    border-color: var(--blue);
+    color: var(--white);
+}
+
+.button.plain:hover {
+    font-weight: bold;
 }
