@@ -26,7 +26,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 	switch (props.phase) {
 		case BoardPagePhases.WAITING_FOR_CREATING:
 			return (
-				<div className={styles.columnHeader}>
+				<div className={styles.columnHeader} style={{ height: 40 }}>
 					<Button onClick={clickOnAddColumn} text={'New column'} iconProps={{ icon: faPlus }} />
 				</div>
 			);
@@ -39,7 +39,10 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 			);
 		case BoardPagePhases.DONE:
 			return (
-				<div className={styles.columnHeader} style={{ backgroundColor: 'darkgrey', paddingLeft: 15 }}>
+				<div
+					className={styles.columnHeader}
+					style={{ height: 40, backgroundColor: 'darkgrey', paddingLeft: 15 }}
+				>
 					{props.name}
 				</div>
 			);
