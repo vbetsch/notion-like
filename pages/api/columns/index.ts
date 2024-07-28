@@ -1,7 +1,7 @@
-import { LOGGER } from '@/services/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { HttpMethods } from '@/enums/HttpMethods';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
+import { RESPONSE } from '@/services/response';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	const idBoard: string | null = req.query.idBoard as string;
@@ -9,12 +9,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	switch (req.method) {
 		case HttpMethods.POST:
 			if (!idBoard) {
-				LOGGER.print_error('You need to specify an id');
-				return res.status(StatusCodes.UNAUTHORIZED).json(ReasonPhrases.UNAUTHORIZED);
+				return RESPONSE.compute_error(res, StatusCodes.UNAUTHORIZED, 'You need to specify an id');
 			}
 			break;
 		default:
-			LOGGER.print_error(ReasonPhrases.METHOD_NOT_ALLOWED);
-			return res.status(StatusCodes.METHOD_NOT_ALLOWED).json(ReasonPhrases.METHOD_NOT_ALLOWED);
+			return RESPONSE.compute_error(res, StatusCodes.METHOD_NOT_ALLOWED);
 	}
 }
