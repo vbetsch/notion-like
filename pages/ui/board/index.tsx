@@ -6,7 +6,6 @@ import { LOGGER } from '@/services/logger';
 import DynamicLoading from '@/components/loading/DynamicLoading';
 import Title from '@/components/Title';
 import styles from '@/styles/pages/boardPage.module.css';
-import ColumnItem from '@/components/columns/ColumnItem';
 import ColumnsList from '@/components/columns/ColumnsList';
 import { BoardModelType } from '@/db/types/models/BoardModelType';
 import { ColumnDto } from '@/db/types/dto/columns';
@@ -33,7 +32,7 @@ export default function BoardPage(): ReactElement {
 		} else {
 			API.QUERIES.BOARDS.getOneBoard(searchId)
 				.then(data => {
-					data ? setBoard(data.board) : LOGGER.print_no_data('board');
+					data && 'board' in data ? setBoard(data.board) : LOGGER.print_no_data('board');
 				})
 				.catch(error => {
 					LOGGER.print_stack(error);
@@ -48,7 +47,6 @@ export default function BoardPage(): ReactElement {
 		if (!searchId || !board) {
 			return;
 		}
-		console.log('(28/07/2024 22:00)  @victor  [ index.tsx:51 ]  3');
 		setColumnsLoading(true);
 		const _data: ColumnDto[] = [
 			{
@@ -78,12 +76,10 @@ export default function BoardPage(): ReactElement {
 	};
 
 	useEffect(() => {
-		console.log('(28/07/2024 21:59)  @victor  [ index.tsx:80 ]  1');
 		getBoard();
 	}, [searchId]);
 
 	useEffect(() => {
-		console.log('(28/07/2024 22:00)  @victor  [ index.tsx:83 ]  2');
 		getColumns();
 	}, [board]);
 
@@ -102,6 +98,7 @@ export default function BoardPage(): ReactElement {
 						dynamicPhase={phase}
 						staticPhase={BoardPagePhases.DONE}
 						setPhase={setPhase}
+						boardId={board._id as string}
 					/>
 				)}
 			</div>

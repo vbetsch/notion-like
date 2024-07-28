@@ -12,6 +12,7 @@ export interface ColumnsListProperties {
 	dynamicPhase: BoardPagePhases;
 	staticPhase: BoardPagePhases;
 	setPhase: Dispatch<React.SetStateAction<BoardPagePhases>>;
+	boardId: string;
 }
 
 export default function ColumnsList(props: ColumnsListProperties): ReactElement {
@@ -21,9 +22,15 @@ export default function ColumnsList(props: ColumnsListProperties): ReactElement 
 				{props.columns &&
 					// props.columns.map((column: ColumnModelType, key: number) => (
 					props.columns.map((column: ColumnDto, key: number) => (
-						<ColumnItem key={key} phase={props.staticPhase} setPhase={props.setPhase} name={column.name} />
+						<ColumnItem
+							key={key}
+							phase={props.staticPhase}
+							setPhase={props.setPhase}
+							name={column.name}
+							boardId={props.boardId}
+						/>
 					))}
-				<ColumnItem phase={props.dynamicPhase} setPhase={props.setPhase} />
+				<ColumnItem phase={props.dynamicPhase} setPhase={props.setPhase} boardId={props.boardId} />
 			</div>
 		</DynamicLoading>
 	);

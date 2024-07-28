@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
-import DynamicLoading from '@/components/loading/DynamicLoading';
-import Button, { ButtonProperties } from '@/components/buttons/Button';
+import Button, { ButtonProperties, ButtonTypes } from '@/components/buttons/Button';
 
 export interface LoadingButtonProperties extends ButtonProperties {
 	loading: boolean;
@@ -8,8 +7,11 @@ export interface LoadingButtonProperties extends ButtonProperties {
 
 export default function LoadingButton(props: LoadingButtonProperties): ReactElement {
 	return (
-		<DynamicLoading loading={props.loading}>
-			<Button type={props.type} text={props.text} iconProps={props.iconProps} onClick={props.onClick} />
-		</DynamicLoading>
+		<Button
+			type={props.loading ? ButtonTypes.LOADING : props.type}
+			text={props.loading ? 'Loading...' : props.text}
+			iconProps={props.iconProps}
+			onClick={props.onClick}
+		/>
 	);
 }

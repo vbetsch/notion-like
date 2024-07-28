@@ -5,6 +5,7 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 export enum ButtonTypes {
 	DISCREET = 'discreet',
 	PLAIN = 'plain',
+	LOADING = 'loading',
 }
 
 export interface ButtonProperties {

@@ -1,10 +1,10 @@
 import { API } from '@/api/index';
-import { BoardResultType, BoardsListResultType } from '@/api/types/ResultsTypes';
+import { BasicErrorResultType, BoardResultType, BoardsListResultType } from '@/api/types/ResultsTypes';
 
-const getBoards = async (): Promise<BoardsListResultType> => {
+const getBoards = async (): Promise<BoardsListResultType | BasicErrorResultType> => {
 	return await API.getAPIDataFromUrl(API.CONSTANTS.URI.BOARDS.ALL, 'Get all boards');
 };
-const getOneBoard = async (id: string): Promise<BoardResultType> => {
+const getOneBoard = async (id: string): Promise<BoardResultType | BasicErrorResultType> => {
 	return await API.getAPIDataFromUrl(`${API.CONSTANTS.URI.BOARDS.ALL}/${id}`, `Get board by id=${id}`);
 };
 
