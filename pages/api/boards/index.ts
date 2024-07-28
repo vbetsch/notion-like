@@ -12,10 +12,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		case HttpMethods.GET:
 			try {
 				result = { boards: await DB.QUERIES.BOARDS.getAllBoards() };
-				return res.status(StatusCodes.OK).json(result);
 			} catch (error) {
 				return RESPONSE.compute_stack(res, error);
 			}
+			return res.status(StatusCodes.OK).json(result);
 		default:
 			return RESPONSE.compute_error(res, StatusCodes.METHOD_NOT_ALLOWED);
 	}

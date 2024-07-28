@@ -3,6 +3,10 @@ import Column from '@/db/models/Column';
 import { ColumnModelType } from '@/db/types/models/ColumnModelType';
 import { ColumnCreateDto } from '@/db/types/dto/columns';
 
+const getAllColumns = async (): Promise<ColumnModelType[]> => {
+	await dbConnect();
+	return Column.find({}).sort({ order: 1 });
+};
 const createOneColumn = async (boardId: string, column: ColumnCreateDto): Promise<ColumnModelType> => {
 	await dbConnect();
 	return Column.create({
@@ -11,4 +15,4 @@ const createOneColumn = async (boardId: string, column: ColumnCreateDto): Promis
 	});
 };
 
-export const COLUMNS = { createOneColumn };
+export const COLUMNS = { getAllColumns, createOneColumn };

@@ -14,6 +14,10 @@ export interface BoardsListResultType {
 	boards: BoardModelType[];
 }
 
+export interface ColumnsListResultType {
+	columns: ColumnModelType[];
+}
+
 export interface CreateColumnResultType {
 	column_inserted: ColumnModelType;
 	board_updated: BoardModelType;
