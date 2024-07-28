@@ -6,7 +6,7 @@ import { LOGGER } from '@/services/logger';
 import DynamicLoading from '@/components/loading/DynamicLoading';
 import Title from '@/components/Title';
 import styles from '@/styles/pages/boardPage.module.css';
-import Column from '@/components/columns/Column';
+import ColumnItem from '@/components/columns/ColumnItem';
 import ColumnsList from '@/components/columns/ColumnsList';
 import { BoardModelType } from '@/db/types/models/BoardModelType';
 import { ColumnDto } from '@/db/types/dto/columns';
@@ -99,11 +99,11 @@ export default function BoardPage(): ReactElement {
 					<ColumnsList
 						loading={columnsLoading}
 						columns={columns}
-						phase={BoardPagePhases.DONE}
+						dynamicPhase={phase}
+						staticPhase={BoardPagePhases.DONE}
 						setPhase={setPhase}
 					/>
 				)}
-				{searchId && board && <Column phase={phase} setPhase={setPhase} />}
 			</div>
 		</DynamicLoading>
 	);
