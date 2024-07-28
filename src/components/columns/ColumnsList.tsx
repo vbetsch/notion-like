@@ -17,18 +17,20 @@ export interface ColumnsListProperties {
 export default function ColumnsList(props: ColumnsListProperties): ReactElement {
 	return (
 		<DynamicLoading loading={props.loading}>
-			<div className={styles.columnsList}>
-				{props.columns &&
-					props.columns.map((column: ColumnModelType, key: number) => (
-						<ColumnItem
-							key={key}
-							phase={props.staticPhase}
-							setPhase={props.setPhase}
-							boardId={props.boardId}
-							data={column}
-						/>
-					))}
-				<ColumnItem phase={props.dynamicPhase} setPhase={props.setPhase} boardId={props.boardId} />
+			<div className={styles.columnContainer}>
+				<div className={styles.columnsList}>
+					{props.columns &&
+						props.columns.map((column: ColumnModelType, key: number) => (
+							<ColumnItem
+								key={key}
+								phase={props.staticPhase}
+								setPhase={props.setPhase}
+								boardId={props.boardId}
+								data={column}
+							/>
+						))}
+					<ColumnItem phase={props.dynamicPhase} setPhase={props.setPhase} boardId={props.boardId} />
+				</div>
 			</div>
 		</DynamicLoading>
 	);
