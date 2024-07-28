@@ -1,3 +1,4 @@
-import { BOARDS } from '@/api/queries/boards';
+import { BOARDS } from './boards';
+import { COLUMNS } from './columns';
 
-export const QUERIES = { BOARDS };
+export const QUERIES = { BOARDS, COLUMNS };

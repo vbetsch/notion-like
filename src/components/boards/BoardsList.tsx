@@ -4,7 +4,7 @@ import DynamicLoading from '@/components/loading/DynamicLoading';
 import styles from '@/styles/components/boards.module.css';
 import { BoardModelType } from '@/db/types/models/BoardModelType';
 
-interface BoardsListProperties {
+export interface BoardsListProperties {
 	boards: BoardModelType[];
 	loading: boolean;
 }
