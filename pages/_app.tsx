@@ -1,4 +1,4 @@
-import '../public/css/index.css';
+import '@/public/css/index.css';
 import React from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';

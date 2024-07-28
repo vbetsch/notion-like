@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { LOGGER } from '@/services/logger';
-import { getBoardById } from '../../../src/db/queries/boards';
 import { BoardType } from '@/types/db/BoardType';
+import { getBoardById } from '@/db/queries/boards';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	const idBoard: string = req.query.idBoard as string;

@@ -5,6 +5,12 @@
             "@/lib/*": [
                 "lib/*"
             ],
+            "@/pages/*": [
+                "pages/*"
+            ],
+            "@/public/*": [
+                "public/*"
+            ],
             "@/styles/*": [
                 "public/css/modules/*"
             ],
@@ -14,6 +20,9 @@
             "@/components/*": [
                 "src/components/*"
             ],
+            "@/db/*": [
+                "src/db/*"
+            ],
             "@/enums/*": [
                 "src/enums/*"
             ],
@@ -22,7 +31,7 @@
             ],
             "@/types/*": [
                 "src/types/*"
-            ],
+            ]
         },
         "target": "es5",
         "lib": [

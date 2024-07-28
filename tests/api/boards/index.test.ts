@@ -1,11 +1,11 @@
 import { TESTS } from '../../index';
 import { createMocks } from 'node-mocks-http';
 import { HttpMethods } from '@/enums/HttpMethods';
-import handler from '../../../pages/api/boards/index';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { describe, it, expect } from '@jest/globals';
-import Board from '../../../src/db/models/Board';
+import Board from '@/db/models/Board';
+import handler from '@/pages/api/boards';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
