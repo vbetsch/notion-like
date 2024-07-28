@@ -59,8 +59,10 @@ describe('[API] /boards', () => {
 
 		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
 
+		const _result: BasicErrorResultType = { reason: ReasonPhrases.METHOD_NOT_ALLOWED };
+
 		expect(res._getStatusCode()).toBe(StatusCodes.METHOD_NOT_ALLOWED);
 		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual(ReasonPhrases.METHOD_NOT_ALLOWED);
+		expect(res._getJSONData()).toStrictEqual(_result);
 	});
 });
