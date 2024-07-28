@@ -1,7 +1,7 @@
 import { NextApiResponse } from 'next';
 import { getReasonPhrase, ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { LOGGER } from '@/services/logger';
-import { BasicErrorResultType } from '@/api/types/ErrorsResultsTypes';
+import { BasicErrorResultType } from '@/api/types/ResultsTypes';
 
 const compute_warning = (response: NextApiResponse, status: StatusCodes, message: string, body?: any) => {
 	LOGGER.print_warning(message);

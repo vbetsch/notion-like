@@ -6,7 +6,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { describe, it, expect } from '@jest/globals';
 import Board from '@/db/models/Board';
 import handler from '@/pages/api/boards';
-import { BasicErrorResultType } from '@/api/types/ErrorsResultsTypes';
+import { BasicErrorResultType } from '@/api/types/ResultsTypes';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
