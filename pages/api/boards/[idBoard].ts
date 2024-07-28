@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { HttpMethods } from '@/enums/HttpMethods';
 import { StatusCodes } from 'http-status-codes';
-import { getBoardById } from '@/db/queries/boards';
 import { RESPONSE } from '@/services/response';
 import { BoardResultType } from '@/api/types/BoardsResultsTypes';
+import { QUERIES } from '@/db/queries';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	const idBoard: string = req.query.idBoard as string;
@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		case HttpMethods.GET:
 			try {
 				result = {
-					board: await getBoardById(idBoard),
+					board: await QUERIES.BOARDS.getBoardById(idBoard),
 				};
 			} catch (error) {
 				return RESPONSE.compute_stack(res, error);

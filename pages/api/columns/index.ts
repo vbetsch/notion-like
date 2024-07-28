@@ -11,6 +11,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			if (!idBoard) {
 				return RESPONSE.compute_error(res, StatusCodes.UNAUTHORIZED, 'You need to specify an id');
 			}
+
+			try {
+				// query
+			} catch (error) {
+				return RESPONSE.compute_stack(res, error);
+			}
 			break;
 		default:
 			return RESPONSE.compute_error(res, StatusCodes.METHOD_NOT_ALLOWED);

@@ -11,4 +11,4 @@ const getBoardById = async (id: string): Promise<BoardType | null> => {
 	return Board.findById(id);
 };
 
-export { getAllBoards, getBoardById };
+export const BOARDS = { getAllBoards, getBoardById };
