@@ -80,12 +80,12 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 			);
 		case BoardPagePhases.DONE:
 			return (
-				<div
+				<h3
 					className={styles.columnHeader}
-					style={{ height: 40, backgroundColor: 'darkgrey', paddingLeft: 15 }}
+					style={{ height: 40}}
 				>
 					{name || (props.data && props.data.name)}
-				</div>
+				</h3>
 			);
 	}
 }
