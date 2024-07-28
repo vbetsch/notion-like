@@ -6,19 +6,21 @@ import { LOGGER } from '@/services/logger';
 import DynamicLoading from '@/components/loading/DynamicLoading';
 import Title from '@/components/Title';
 import { BoardModelType } from '@/db/types/models/BoardModelType';
-import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import styles from '@/styles/pages/boardPage.module.css';
-import Button from '@/components/buttons/Button';
+import Column from '@/components/columns/Column';
+
+export enum BoardPagePhases {
+	WAITING_FOR_CREATING = 0,
+	EDITING = 1,
+	DONE = 2,
+}
 
 export default function BoardPage(): ReactElement {
+	const [phase, setPhase] = useState<BoardPagePhases>(BoardPagePhases.WAITING_FOR_CREATING);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [board, setBoard] = useState<BoardModelType | null>(null);
 	const searchParams = useSearchParams();
 	const searchId = searchParams.get('id');
-
-	const clickOnAddColumn = () => {
-		console.log('(28/07/2024 20:24)  @victor  [ index.tsx:18 ]  clickOnAddColumn');
-	};
 
 	useEffect(() => {
 		if (!searchId) {
@@ -45,15 +47,8 @@ export default function BoardPage(): ReactElement {
 						searchId && board ? `${board.name}` : `No board found ${searchId ? `with id ${searchId}` : ''}`
 					}
 				/>
-				{searchId && board && (
-					<Button
-						text={'New column'}
-						onClick={clickOnAddColumn}
-						iconProps={{
-							icon: faPlus,
-						}}
-					/>
-				)}
+				{searchId && board && <Column phase={BoardPagePhases.DONE} setPhase={setPhase} />}
+				{searchId && board && <Column phase={phase} setPhase={setPhase} />}
 			</div>
 		</DynamicLoading>
 	);
