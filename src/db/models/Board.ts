@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { BoardType } from '@/db/types/BoardType';
+import { BoardModelType } from '@/db/types/models/BoardModelType';
 
-const BoardSchema = new mongoose.Schema<BoardType>({
+const BoardSchema = new mongoose.Schema<BoardModelType>({
 	name: {
 		type: String,
 		required: true,
@@ -14,4 +14,4 @@ const BoardSchema = new mongoose.Schema<BoardType>({
 	],
 });
 
-export default mongoose.models.Board || mongoose.model<BoardType>('Board', BoardSchema);
+export default mongoose.models.Board || mongoose.model<BoardModelType>('Board', BoardSchema);

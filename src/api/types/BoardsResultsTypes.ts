@@ -1,9 +1,9 @@
-import { BoardType } from '@/db/types/BoardType';
+import { BoardModelType } from '@/db/types/models/BoardModelType';
 
 export interface BoardResultType {
-	board: BoardType | null;
+	board: BoardModelType | null;
 }
 
 export interface BoardsListResultType {
-	boards: BoardType[];
+	boards: BoardModelType[];
 }

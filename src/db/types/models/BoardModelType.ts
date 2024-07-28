@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface BoardType extends mongoose.Document {
+export interface BoardModelType extends mongoose.Document {
 	name: string;
 	columns: mongoose.Types.ObjectId[];
 }

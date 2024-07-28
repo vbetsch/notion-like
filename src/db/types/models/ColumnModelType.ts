@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface ColumnType extends mongoose.Document {
+export interface ColumnModelType extends mongoose.Document {
 	name: string;
 	order: number;
 	cards: mongoose.Types.ObjectId[];

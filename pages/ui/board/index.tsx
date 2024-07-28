@@ -5,11 +5,11 @@ import { API } from '@/api/index';
 import { LOGGER } from '@/services/logger';
 import DynamicLoading from '@/components/loading/DynamicLoading';
 import Title from '@/components/Title';
-import { BoardType } from '@/db/types/BoardType';
+import { BoardModelType } from '@/db/types/models/BoardModelType';
 
 export default function BoardPage(): ReactElement {
 	const [loading, setLoading] = useState<boolean>(true);
-	const [board, setBoard] = useState<BoardType | null>(null);
+	const [board, setBoard] = useState<BoardModelType | null>(null);
 	const searchParams = useSearchParams();
 	const searchId = searchParams.get('id');
 

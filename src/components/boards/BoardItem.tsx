@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
 import styles from '@/styles/components/boards.module.css';
 import { useRouter } from 'next/router';
-import { BoardType } from '@/db/types/BoardType';
+import { BoardModelType } from '@/db/types/models/BoardModelType';
 
 export interface BoardItemProperties {
-	board: BoardType;
+	board: BoardModelType;
 }
 
 export default function BoardItem(props: BoardItemProperties): ReactElement {

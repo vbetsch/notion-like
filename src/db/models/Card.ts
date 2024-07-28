@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { CardType } from '@/db/types/CardType';
+import { CardModelType } from '@/db/types/models/CardModelType';
 
-const CardSchema = new mongoose.Schema<CardType>({
+const CardSchema = new mongoose.Schema<CardModelType>({
 	name: {
 		type: String,
 		required: true,
@@ -16,4 +16,4 @@ const CardSchema = new mongoose.Schema<CardType>({
 	},
 });
 
-export default mongoose.models.Card || mongoose.model<CardType>('Card', CardSchema);
+export default mongoose.models.Card || mongoose.model<CardModelType>('Card', CardSchema);

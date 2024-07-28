@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { ColumnType } from '@/db/types/ColumnType';
+import { ColumnModelType } from '@/db/types/models/ColumnModelType';
 
-const ColumnSchema = new mongoose.Schema<ColumnType>({
+const ColumnSchema = new mongoose.Schema<ColumnModelType>({
 	name: {
 		type: String,
 		required: true,
@@ -22,4 +22,4 @@ const ColumnSchema = new mongoose.Schema<ColumnType>({
 	},
 });
 
-export default mongoose.models.Column || mongoose.model<ColumnType>('Column', ColumnSchema);
+export default mongoose.models.Column || mongoose.model<ColumnModelType>('Column', ColumnSchema);
