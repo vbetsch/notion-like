@@ -1,5 +1,6 @@
-import { BasicErrorResultType, CardsListResultType } from '@/api/types/ResultsTypes';
+import { BasicErrorResultType, CardsListResultType, CreateCardResultType } from '@/api/types/ResultsTypes';
 import { API } from '@/api/index';
+import { CardCreateDto } from '@/db/types/dto/cards';
 
 const getCards = async (idColumn: string): Promise<CardsListResultType | BasicErrorResultType> => {
 	return await API.getAPIDataFromUrl(
@@ -8,17 +9,18 @@ const getCards = async (idColumn: string): Promise<CardsListResultType | BasicEr
 	);
 };
 
-// const createCards = async (
-// 	idBoard: string,
-// 	body: ColumnCreateDto,
-// ): Promise<CreateColumnResultType | BasicErrorResultType> => {
-// 	return await API.postAPIDataFromUrl(
-// 		`${API.CONSTANTS.URI.COLUMNS.ROOT}?idBoard=${idBoard}`,
-// 		`Create column in board ${idBoard}`,
-// 		body,
-// 	);
-// };
+const createCards = async (
+	idColumn: string,
+	body: CardCreateDto,
+): Promise<CreateCardResultType | BasicErrorResultType> => {
+	return await API.postAPIDataFromUrl(
+		`${API.CONSTANTS.URI.CARDS.ROOT}?idColumn=${idColumn}`,
+		`Create card in column ${idColumn}`,
+		body,
+	);
+};
 
 export const CARDS = {
 	getCards,
+	createCards,
 };

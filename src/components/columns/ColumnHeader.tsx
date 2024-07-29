@@ -9,6 +9,7 @@ import { ColumnCreateDto } from '@/db/types/dto/columns';
 import { LOGGER } from '@/services/logger';
 import { ColumnModelType } from '@/db/types/models/ColumnModelType';
 import { Phases } from '@/enums/Phases';
+import Error from '@/components/Error';
 
 export interface ColumnHeaderProperties {
 	phase: Phases;
@@ -75,7 +76,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 						onClick={clickOnSaveButton}
 						text={'Done'}
 					/>
-					{error && <span>{error}</span>}
+					{error && <Error message={error} />}
 				</div>
 			);
 		case Phases.DONE:
