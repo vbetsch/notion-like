@@ -1,5 +1,4 @@
 import React, { Dispatch, ReactElement, useState } from 'react';
-import { BoardPagePhases } from '@/pages/ui/board';
 import styles from '@/styles/components/columns.module.css';
 import Button, { ButtonTypes } from '@/components/buttons/Button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -9,10 +8,11 @@ import { API } from '@/api/index';
 import { ColumnCreateDto } from '@/db/types/dto/columns';
 import { LOGGER } from '@/services/logger';
 import { ColumnModelType } from '@/db/types/models/ColumnModelType';
+import { Phases } from '@/enums/Phases';
 
 export interface ColumnHeaderProperties {
-	phase: BoardPagePhases;
-	setPhase: Dispatch<React.SetStateAction<BoardPagePhases>>;
+	phase: Phases;
+	setPhase: Dispatch<React.SetStateAction<Phases>>;
 	boardId: string;
 	data?: ColumnModelType;
 }
@@ -24,7 +24,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 	const [error, setError] = useState<string | null>(null);
 
 	const clickOnAddColumn = () => {
-		props.setPhase(BoardPagePhases.EDITING);
+		props.setPhase(Phases.EDITING);
 	};
 
 	const clickOnSaveButton = () => {
@@ -42,7 +42,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 					setError(data.message || data.reason);
 				} else {
 					setName(data.column_inserted.name);
-					props.setPhase(BoardPagePhases.DONE);
+					props.setPhase(Phases.DONE);
 				}
 			})
 			.catch(error => {
@@ -54,7 +54,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 	};
 
 	switch (props.phase) {
-		case BoardPagePhases.WAITING_FOR_CREATING:
+		case Phases.WAITING_FOR_CREATING:
 			return (
 				<div className={styles.columnHeader} style={{ height: 40 }}>
 					<Button
@@ -65,7 +65,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 					/>
 				</div>
 			);
-		case BoardPagePhases.EDITING:
+		case Phases.EDITING:
 			return (
 				<div className={styles.columnHeader} style={{ gap: 10 }}>
 					<InputText value={inputValue} setValue={setInputValue} />
@@ -78,7 +78,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 					{error && <span>{error}</span>}
 				</div>
 			);
-		case BoardPagePhases.DONE:
+		case Phases.DONE:
 			return (
 				<h3 className={styles.columnHeader} style={{ height: 40 }}>
 					{name || (props.data && props.data.name)}

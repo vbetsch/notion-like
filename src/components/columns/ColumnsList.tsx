@@ -2,15 +2,15 @@ import React, { Dispatch, ReactElement } from 'react';
 import DynamicLoading from '@/components/loading/DynamicLoading';
 import styles from '@/styles/components/columns.module.css';
 import ColumnItem from '@/components/columns/ColumnItem';
-import { BoardPagePhases } from '@/pages/ui/board';
 import { ColumnModelType } from '@/db/types/models/ColumnModelType';
+import { Phases } from '@/enums/Phases';
 
 export interface ColumnsListProperties {
 	loading: boolean;
 	columns: ColumnModelType[];
-	dynamicPhase: BoardPagePhases;
-	staticPhase: BoardPagePhases;
-	setPhase: Dispatch<React.SetStateAction<BoardPagePhases>>;
+	dynamicPhase: Phases;
+	staticPhase: Phases;
+	setPhase: Dispatch<React.SetStateAction<Phases>>;
 	boardId: string;
 }
 

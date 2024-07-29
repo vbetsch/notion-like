@@ -5,6 +5,9 @@ const URI = {
 	COLUMNS: {
 		ROOT: '/columns',
 	},
+	CARDS: {
+		ROOT: '/cards',
+	},
 };
 
 export const CONSTANTS = {
