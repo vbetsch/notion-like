@@ -7,13 +7,8 @@ import { BasicErrorResultType } from '@/api/types/ResultsTypes';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { TESTS } from '../../index';
 import Card from '@/db/models/Card';
-import {
-	MockCardsListResultType,
-	MockCreateCardResultType,
-	MockCreateColumnResultType,
-} from '../../mocks/types/results';
+import { MockCardsListResultType, MockCreateCardResultType } from '../../mocks/types/results';
 import Column from '@/db/models/Column';
-import Board from '@/db/models/Board';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
