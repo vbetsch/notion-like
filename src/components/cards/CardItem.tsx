@@ -10,6 +10,7 @@ import { API } from '@/api/index';
 import { LOGGER } from '@/services/logger';
 import { CardCreateDto } from '@/db/types/dto/cards';
 import Error from '@/components/Error';
+import styles from '@/styles/components/cards.module.css';
 
 interface CardItemProperties {
 	phase: Phases;
@@ -78,6 +79,6 @@ export default function CardItem(props: CardItemProperties): ReactElement {
 				</div>
 			);
 		case Phases.DONE:
-			return <div>{name || (props.data && props.data.name)}</div>;
+			return <div className={styles.cardItem}>{name || (props.data && props.data.name)}</div>;
 	}
 }

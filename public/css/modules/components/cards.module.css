@@ -1,0 +1,11 @@
+.cardsList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cardItem {
+    border: 1px solid var(--darkgrey);
+    padding: 10px 8px;
+    border-radius: 5px;
+}
