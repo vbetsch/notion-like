@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	switch (req.method) {
 		case HttpMethods.GET:
 			if (!idBoard) {
-				return RESPONSE.compute_error(res, StatusCodes.UNAUTHORIZED, 'You need to specify an id');
+				return RESPONSE.compute_error(res, StatusCodes.UNAUTHORIZED, 'You need to specify a board id');
 			}
 
 			try {
@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			}
 
 			try {
-				getResult = { columns: await DB.QUERIES.COLUMNS.getAllColumns() };
+				getResult = { columns: await DB.QUERIES.COLUMNS.getColumnsByBoardId(idBoard) };
 			} catch (error) {
 				return RESPONSE.compute_stack(res, error);
 			}
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			return res.status(StatusCodes.OK).json(getResult);
 		case HttpMethods.POST:
 			if (!idBoard) {
-				return RESPONSE.compute_error(res, StatusCodes.UNAUTHORIZED, 'You need to specify an id');
+				return RESPONSE.compute_error(res, StatusCodes.UNAUTHORIZED, 'You need to specify a board id');
 			}
 
 			try {

@@ -80,10 +80,7 @@ export default function ColumnHeader(props: ColumnHeaderProperties): ReactElemen
 			);
 		case BoardPagePhases.DONE:
 			return (
-				<h3
-					className={styles.columnHeader}
-					style={{ height: 40}}
-				>
+				<h3 className={styles.columnHeader} style={{ height: 40 }}>
 					{name || (props.data && props.data.name)}
 				</h3>
 			);

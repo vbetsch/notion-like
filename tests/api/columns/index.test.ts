@@ -31,7 +31,7 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.UNAUTHORIZED,
-			message: 'You need to specify an id',
+			message: 'You need to specify a board id',
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.UNAUTHORIZED);
@@ -132,7 +132,7 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.UNAUTHORIZED,
-			message: 'You need to specify an id',
+			message: 'You need to specify a board id',
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.UNAUTHORIZED);
