@@ -1,14 +1,19 @@
 import { describe, expect, it } from '@jest/globals';
 import { createMocks } from 'node-mocks-http';
 import { HttpMethods } from '@/enums/HttpMethods';
-import handler from '@/pages/api/columns/index';
+import handler from '@/pages/api/cards/index';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { BasicErrorResultType } from '@/api/types/ResultsTypes';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import Board from '@/db/models/Board';
 import { TESTS } from '../../index';
+import Card from '@/db/models/Card';
+import {
+	MockCardsListResultType,
+	MockCreateCardResultType,
+	MockCreateColumnResultType,
+} from '../../mocks/types/results';
 import Column from '@/db/models/Column';
-import { MockColumnsListResultType, MockCreateColumnResultType } from '../../mocks/types/results';
+import Board from '@/db/models/Board';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
@@ -18,7 +23,7 @@ jest.mock('../../../lib/dbConnect', () => ({
 	default: jest.fn().mockResolvedValue(null),
 }));
 
-describe('[API] /columns', () => {
+describe('[API] /cards', () => {
 	beforeEach(() => {
 		mockingoose.resetAll();
 	});
@@ -31,20 +36,20 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.UNAUTHORIZED,
-			message: 'You need to specify a board id',
+			message: 'You need to specify a column id',
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.UNAUTHORIZED);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('GET - should return 500 while trying to getBoardById', async () => {
-		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOne');
+	it('GET - should return 500 while trying to getColumnById', async () => {
+		mockingoose(Column).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOne');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
 		});
 
@@ -59,13 +64,13 @@ describe('[API] /columns', () => {
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('GET - should return 404 no board found', async () => {
-		mockingoose(Board).toReturn(null, 'findOne');
+	it('GET - should return 404 no column found', async () => {
+		mockingoose(Column).toReturn(null, 'findOne');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.NOT_VALID_ID,
+				idColumn: TESTS.MOCKS.COMMON.NOT_VALID_ID,
 			},
 		});
 
@@ -73,21 +78,21 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.NOT_FOUND,
-			message: `The board specified by id '${TESTS.MOCKS.COMMON.NOT_VALID_ID}' does not exist`,
+			message: `The column specified by id '${TESTS.MOCKS.COMMON.NOT_VALID_ID}' does not exist`,
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.NOT_FOUND);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('GET - should return 500 while trying to getColumnsByBoardId', async () => {
-		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
-		mockingoose(Column).toReturn(TESTS.MOCKS.COMMON.ERROR, 'find');
+	it('GET - should return 500 while trying to getCardsByColumnId', async () => {
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'findOne');
+		mockingoose(Card).toReturn(TESTS.MOCKS.COMMON.ERROR, 'find');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
 		});
 
@@ -102,25 +107,25 @@ describe('[API] /columns', () => {
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('GET - should return 200 with columns of board expected', async () => {
-		const _columns = TESTS.MOCKS.COLUMNS.ALL_COLUMNS.filter(
-			column => column.boardId === TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+	it('GET - should return 200 with cards of column expected', async () => {
+		const _cards = TESTS.MOCKS.CARDS.ALL_CARDS.filter(
+			card => card.columnId === TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 		);
 
-		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
-		mockingoose(Column).toReturn(_columns, 'find');
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'findOne');
+		mockingoose(Card).toReturn(_cards, 'find');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.GET,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
 		});
 
 		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
 
-		const _result: MockColumnsListResultType = {
-			columns: _columns,
+		const _result: MockCardsListResultType = {
+			cards: _cards,
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.OK);
@@ -136,20 +141,20 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.UNAUTHORIZED,
-			message: 'You need to specify a board id',
+			message: 'You need to specify a column id',
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.UNAUTHORIZED);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('POST - should return 500 while trying to getBoardById', async () => {
-		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOne');
+	it('POST - should return 500 while trying to getColumnById', async () => {
+		mockingoose(Column).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOne');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
 		});
 
@@ -164,13 +169,13 @@ describe('[API] /columns', () => {
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('POST - should return 404 no board found', async () => {
-		mockingoose(Board).toReturn(null, 'findOne');
+	it('POST - should return 404 no column found', async () => {
+		mockingoose(Column).toReturn(null, 'findOne');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.COMMON.NOT_VALID_ID,
+				idColumn: TESTS.MOCKS.COMMON.NOT_VALID_ID,
 			},
 		});
 
@@ -178,21 +183,21 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.NOT_FOUND,
-			message: `The board specified by id '${TESTS.MOCKS.COMMON.NOT_VALID_ID}' does not exist`,
+			message: `The column specified by id '${TESTS.MOCKS.COMMON.NOT_VALID_ID}' does not exist`,
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.NOT_FOUND);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('POST - should return 500 while trying to createOneColumn', async () => {
-		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
+	it('POST - should return 500 while trying to createOneCard', async () => {
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'findOne');
 		mockingoose(Column).toReturn(TESTS.MOCKS.COMMON.ERROR, 'save');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
 		});
 
@@ -200,21 +205,21 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.INTERNAL_SERVER_ERROR,
-			message: 'Column could not be added to board',
+			message: 'Card could not be added to column',
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('POST - should return 500 while trying to addColumnToBoard', async () => {
-		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
-		mockingoose(Board).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOneAndUpdate');
+	it('POST - should return 500 while trying to addCardToColumn', async () => {
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'findOne');
+		mockingoose(Column).toReturn(TESTS.MOCKS.COMMON.ERROR, 'findOneAndUpdate');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
 		});
 
@@ -230,13 +235,13 @@ describe('[API] /columns', () => {
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
 	it('POST - should return 500 when column could not be added to board', async () => {
-		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
-		mockingoose(Board).toReturn(null, 'findOneAndUpdate');
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'findOne');
+		mockingoose(Column).toReturn(null, 'findOneAndUpdate');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
 		});
 
@@ -244,31 +249,31 @@ describe('[API] /columns', () => {
 
 		const _result: BasicErrorResultType = {
 			reason: ReasonPhrases.INTERNAL_SERVER_ERROR,
-			message: 'Column could not be added to board',
+			message: 'Card could not be added to column',
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual(_result);
 	});
-	it('POST - should return 200 with board updated and column inserted', async () => {
-		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOne');
-		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'save');
-		mockingoose(Board).toReturn(TESTS.MOCKS.BOARDS.ONE_BOARD, 'findOneAndUpdate');
+	it('POST - should return 200 with column updated and card inserted', async () => {
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'findOne');
+		mockingoose(Card).toReturn(TESTS.MOCKS.CARDS.ONE_CARD, 'save');
+		mockingoose(Column).toReturn(TESTS.MOCKS.COLUMNS.ONE_COLUMN, 'findOneAndUpdate');
 
 		const { req, res } = createMocks({
 			method: HttpMethods.POST,
 			query: {
-				idBoard: TESTS.MOCKS.BOARDS.VALID_BOARD_ID,
+				idColumn: TESTS.MOCKS.COLUMNS.VALID_COLUMN_ID,
 			},
-			body: TESTS.MOCKS.COLUMNS.ONE_COLUMN,
+			body: TESTS.MOCKS.CARDS.ONE_CARD,
 		});
 
 		await handler(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
 
-		const _result: MockCreateColumnResultType = {
-			board_updated: TESTS.MOCKS.BOARDS.ONE_BOARD,
-			column_inserted: TESTS.MOCKS.COLUMNS.ONE_COLUMN,
+		const _result: MockCreateCardResultType = {
+			column_updated: TESTS.MOCKS.COLUMNS.ONE_COLUMN,
+			card_inserted: TESTS.MOCKS.CARDS.ONE_CARD,
 		};
 
 		expect(res._getStatusCode()).toBe(StatusCodes.OK);
